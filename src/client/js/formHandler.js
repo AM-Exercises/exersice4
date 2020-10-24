@@ -7,12 +7,17 @@ function handleSubmit(event) {
     
     console.log("::: Form Submitted :::")
 
-    fetch('/sentiment',{ fText: formText })
-    .then(res => {
-        return res.json()
+    fetch('/sentiment',{
+        method: 'POST', 
+        credentials: 'same-origin', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({text:formText})
     })
-    .then(function(data) {
-        document.getElementById('results').innerHTML = data.message
+    .then(res => res.json())
+    .then(function(res) {
+        document.getElementById('results').innerHTML = res.status.msg
     })
     
 }
