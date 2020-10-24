@@ -3,6 +3,7 @@ const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 var bodyParser = require('body-parser')
 var cors = require('cors')
+var fetch = require('node-fetch')
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -37,29 +38,26 @@ app.get('/test', function (req, res) {
 })
 
 
-const getSentiment = async ()=>{
+const getSentiment = async (req,r)=>{
 
-    let formText = document.getElementById('sentence').value
-    const baseURL ="https://api.meaningcloud.com/sentiment-2.1?";
+  let formText = req.body.text
+  const baseURL ="https://api.meaningcloud.com/sentiment-2.1?";
 
-    const res = await  fetch(`${baseURL}key=${process.env.API_KEY}txt=${formText}&lang=en`);
-    try {
-  
-      const data = await res.json();
-      console.log(data)
+  const res = await  fetch(`${baseURL}key=${process.env.API_KEY}txt=${formText}&lang=en`);
+  try {
 
-      document.getElementById('results').innerHTML = "hello";
-      
-      return data;
-    }  catch(error) {
-      console.log("error", error);
-      // appropriately handle the error
-    }
+    const data = await res.json();
+    console.log(data)
+
+    r.send(data);
+  }  catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
   }
+}
 
-app.get('/sentiment', function(req,res){
-
-    getSentiment();
+app.post('/sentiment', function(req,res){
+  getSentiment(req,res);
 })
 
 // designates what port the app will listen to for incoming requests
