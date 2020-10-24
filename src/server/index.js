@@ -36,6 +36,32 @@ app.get('/test', function (req, res) {
     res.json(mockAPIResponse);
 })
 
+
+const getSentiment = async ()=>{
+
+    let formText = document.getElementById('sentence').value
+    const baseURL ="https://api.meaningcloud.com/sentiment-2.1?";
+
+    const res = await  fetch(`${baseURL}key=${process.env.API_KEY}txt=${formText}&lang=en`);
+    try {
+  
+      const data = await res.json();
+      console.log(data)
+
+      document.getElementById('results').innerHTML = "hello";
+      
+      return data;
+    }  catch(error) {
+      console.log("error", error);
+      // appropriately handle the error
+    }
+  }
+
+app.get('/sentiment', function(req,res){
+
+    getSentiment();
+})
+
 // designates what port the app will listen to for incoming requests
 app.listen(8081, function () {
     console.log('Example app listening on port 8081!')
