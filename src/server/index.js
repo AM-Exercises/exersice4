@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('dist'))
 
 
-console.log(JSON.stringify(mockAPIResponse))
+//console.log(JSON.stringify(mockAPIResponse))
 
 
 app.get('/', function (req, res) {
@@ -43,7 +43,7 @@ const getSentiment = async (req,r)=>{
   let formText = req.body.text
   const baseURL ="https://api.meaningcloud.com/sentiment-2.1?";
 
-  const res = await  fetch(`${baseURL}key=${process.env.API_KEY}txt=${formText}&lang=en`);
+  const res = await  fetch(`${baseURL}key=${process.env.API_KEY}&txt=${formText}&lang=en`);
   try {
 
     const data = await res.json();
