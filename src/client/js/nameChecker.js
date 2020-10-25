@@ -13,5 +13,7 @@ function checkForName(inputText) {
     }
 }
 
-//export { checkForName }
-module.exports = checkForName;
+export { checkForName }
+
+//When running test - uncheck the bottom line and check the above line
+//module.exports = checkForName;

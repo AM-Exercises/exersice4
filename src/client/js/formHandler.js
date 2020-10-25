@@ -17,10 +17,14 @@ function handleSubmit(event) {
     })
     .then(res => res.json())
     .then(function(res) {
-        document.getElementById('results').innerHTML = res.status.msg
+        document.getElementById('results-status').innerHTML = res.status.msg;
+        document.getElementById('results-model').innerHTML = res.model;
+        document.getElementById('results-agreement').innerHTML = res.agreement;
+        
     })
     
 }
 
-//export { handleSubmit }
-module.exports = handleSubmit;
+export { handleSubmit }
+//When running test - uncheck the bottom line and check the above line
+//module.exports = handleSubmit;
